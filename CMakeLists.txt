@@ -21,6 +21,8 @@ target_include_directories(analyzer_gui
 )
 
 set(CLUSTER_ANALYZER_SOURCES
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/data.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/data.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/main.c
 )
 add_executable(cluster_analyzer)
@@ -31,4 +33,8 @@ target_sources(cluster_analyzer
 target_include_directories(cluster_analyzer
  PRIVATE
   include
+)
+target_link_libraries(cluster_analyzer
+ PRIVATE
+  m
 )
