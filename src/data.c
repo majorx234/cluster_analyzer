@@ -71,3 +71,11 @@ void gen_data_mouse(Data** data, size_t num_samples, size_t num_centroids, Limit
     arrput((*data)->centroids, new_centroid);
   }
 }
+
+void free_data(Data** data)
+{
+  arrfree((*data)->samples);
+  arrfree((*data)->centroids);
+  free(*data);
+  *data = NULL;
+}
