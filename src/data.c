@@ -32,22 +32,33 @@ void gen_data(Data** data, size_t num_samples, size_t num_centroids, Limits limi
   // TODO check if data == NULL
 
   *data = malloc(sizeof(Data));
+  (*data)->samples = NULL;
+  (*data)->centroids = NULL;
 
   for (size_t i = 0; i < num_centroids; ++i) {
     Vector2 new_centroid = {
       .x = lerp(limits.min_x, limits.max_x, rand_float()),
       .y = lerp(limits.min_y, limits.max_y, rand_float())
     };
+
+    float dist_min_x = new_centroid.x - limits.min_x;
+    float dist_max_x = limits.max_x - new_centroid.x;
+    float dist_min_y = new_centroid.y - limits.min_y;
+    float dist_max_y = limits.max_y - new_centroid.y;
+    float max_bound = MIN(dist_min_x, (MIN(dist_max_x, (MIN(dist_min_y, dist_max_y)) )));
+
     arrput((*data)->centroids, new_centroid);
-    float radius = lerp(0, 12, rand_float());
-    generate_cluster(
-        CLITERAL(Vector2){(*data)->centroids[i].x, (*data)->centroids[i].y}, radius, num_samples,
-        &(*data)->samples);
+    float radius = lerp(0, max_bound, rand_float());
+    generate_cluster(CLITERAL(Vector2){(*data)->centroids[i].x, (*data)->centroids[i].y}, radius, num_samples,
+                     &(*data)->samples);
   }
 }
 
 void gen_data_mouse(Data** data, size_t num_samples, size_t num_centroids, Limits limits) {
   *data = malloc(sizeof(Data));
+  (*data)->samples = NULL;
+  (*data)->centroids = NULL;
+
   generate_cluster(CLITERAL(Vector2){0}, 10, 100, &(*data)->samples);
   generate_cluster(CLITERAL(Vector2){limits.min_x*0.5f, limits.max_y*0.5f}, 5, 50, &(*data)->samples);
   generate_cluster(CLITERAL(Vector2){limits.max_x*0.5f, limits.max_y*0.5f}, 5, 50, &(*data)->samples);
