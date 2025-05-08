@@ -7,6 +7,24 @@
 #include "kmeans.h"
 #include "data.h"
 #include <float.h>
+#include <stdlib.h>
+
+void kmeans_init(State** state, size_t num_clusters){
+  *state = malloc(sizeof(State));
+  (*state)->clusters = malloc(num_clusters*sizeof(Vector2*));
+  for (size_t i = 0; i< num_clusters; i++) {
+    arrsetlen((*state)->clusters[i], 1);
+  }
+}
+
+void kmeans_free(State** state) {
+  for (size_t i = 0; i< (*state)->num_clusters; i++) {
+    arrfree((*state)->clusters[i]);
+  }
+  free((*state)->clusters);
+  free(*state);
+  *state = NULL;
+}
 
 void kmeans_step(Data* data, State* state)
 {
