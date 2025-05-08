@@ -1,3 +1,6 @@
+#ifndef DATA_H_
+#define DATA_H_
+
 #include "raylib.h"
 #include <stddef.h>
 
@@ -14,3 +17,5 @@ typedef struct Data {
 } Data;
 
 void gen_data(Data** data, size_t num_samples, size_t num_centroids, Limits limits);
+
+#endif // DATA_H_

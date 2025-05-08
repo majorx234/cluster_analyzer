@@ -6,6 +6,20 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(raylib)
 
+set(KMEANS_SOURCES
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/kmeans.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/kmeans.h
+)
+add_library(kmeans)
+target_sources(kmeans
+ PRIVATE
+  ${KMEANS_SOURCES}
+)
+target_include_directories(kmeans
+ PRIVATE
+  include
+)
+
 set(ANALYZER_GUI_SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/src/analyzer_gui.c
   ${CMAKE_CURRENT_SOURCE_DIR}/include/analyzer_gui.h
