@@ -46,7 +46,7 @@ Vector2 project_sample_to_screen(UiRect r, Vector2 sample, Limits limits)
   };
 }
 
-int start_render_loop() {
+int start_render_loop(ClusterStuff* cluster_stuff) {
   SetConfigFlags(FLAG_WINDOW_RESIZABLE);
   InitWindow(800, 600, "k-means");
 
@@ -58,7 +58,7 @@ int start_render_loop() {
       //  recluster_state();
     }
     if (IsKeyPressed(KEY_SPACE)) {
-      // update_means();
+      // cluster_stuff->algostep_cb()
       //  recluster_state();
     }
     BeginDrawing();
@@ -69,20 +69,23 @@ int start_render_loop() {
   return 0;
 }
 
-void cluster_widget(UiRect r, Vector2 *set, Vector2 *clusters[], Vector2 means[], Limits limits)
+void cluster_widget(UiRect r, Vector2 *samples, Vector2 **clusters, Vector2* centroids, size_t num_cluster, Limits limits)
 {
-    for (size_t i = 0; i < arrlen(set); ++i) {
-        Vector2 it = set[i];
-        DrawCircleV(project_sample_to_screen(r, it, limits), SAMPLE_RADIUS, LIGHTGRAY);
-    }
-    for (size_t i = 0; i < 3; ++i) {
-      Color color = get_color(i);
+  // draw samples
+  for (size_t i = 0; i < arrlen(samples); ++i) {
+    Vector2 it = samples[i];
+    DrawCircleV(project_sample_to_screen(r, it, limits), SAMPLE_RADIUS, LIGHTGRAY);
+  }
 
-        for (size_t j = 0; j < arrlen(clusters[i]); ++j) {
-            Vector2 it = clusters[i][j];
-            DrawCircleV(project_sample_to_screen(r, it, limits), SAMPLE_RADIUS, color);
-        }
+  // draw cluster items and centroids
+  for (size_t i = 0; i < num_cluster; ++i) {
+    Color color = get_color(i);
 
-        DrawCircleV(project_sample_to_screen(r, means[i], limits), CENTROID_RADIUS, color);
+    for (size_t j = 0; j < arrlen(clusters[i]); ++j) {
+      Vector2 it = clusters[i][j];
+      DrawCircleV(project_sample_to_screen(r, it, limits), SAMPLE_RADIUS, color);
     }
+
+    DrawCircleV(project_sample_to_screen(r, centroids[i], limits), CENTROID_RADIUS, color);
+  }
 }

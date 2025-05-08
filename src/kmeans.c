@@ -9,6 +9,10 @@
 #include <float.h>
 #include <stdlib.h>
 
+void kmeans_step_wrapper(ClusterStuff* cluster_stuff) {
+  kmeans_step(cluster_stuff->data, cluster_stuff->state);
+}
+
 void kmeans_init(State** state, size_t num_clusters){
   *state = malloc(sizeof(State));
   (*state)->clusters = malloc(num_clusters*sizeof(Vector2*));
