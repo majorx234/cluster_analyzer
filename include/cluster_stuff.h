@@ -4,8 +4,8 @@
 #include "data.h"
 
 typedef struct ClusterStuff {
-  void (*algostep_cb)(struct ClusterStuff* cluster_stuff);
-  void* state;
+  void (*algostep_cb)(struct ClusterStuff* cluster_stuff); // vector of cb functions
+  void* state; // TODO -> vector of states
   // TODO *data_gen()
   Data* data;
 } ClusterStuff;

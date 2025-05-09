@@ -10,7 +10,7 @@
 #include <stdlib.h>
 
 void kmeans_step_wrapper(ClusterStuff* cluster_stuff) {
-  kmeans_step(cluster_stuff->data, cluster_stuff->state);
+  kmeans_step((Data*)cluster_stuff->data, (State*)cluster_stuff->state);
 }
 
 void kmeans_init(State** state, size_t num_clusters){

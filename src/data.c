@@ -51,6 +51,7 @@ void gen_data(Data** data, size_t num_samples, size_t num_centroids, Limits limi
     float radius = lerp(0, max_bound, rand_float());
     generate_cluster(CLITERAL(Vector2){(*data)->centroids[i].x, (*data)->centroids[i].y}, radius, num_samples,
                      &(*data)->samples);
+    (*data)->limits = limits;
   }
 }
 

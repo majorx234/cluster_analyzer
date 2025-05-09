@@ -14,6 +14,7 @@ typedef struct Limits {
 typedef struct Data {
   Vector2* samples;
   Vector2* centroids;
+  Limits limits;
 } Data;
 
 void gen_data(Data** data, size_t num_samples, size_t num_centroids, Limits limits);

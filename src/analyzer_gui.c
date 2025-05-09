@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "kmeans.h"
 #include "raylib.h"
 #include "raymath.h"
 #include <math.h>
@@ -58,11 +59,21 @@ int start_render_loop(ClusterStuff* cluster_stuff) {
       //  recluster_state();
     }
     if (IsKeyPressed(KEY_SPACE)) {
+      cluster_stuff->algostep_cb(cluster_stuff);
       // cluster_stuff->algostep_cb()
       //  recluster_state();
     }
     BeginDrawing();
     ClearBackground(GetColor(0x181818AA));
+    UiRect rect = {
+      .h = 600,
+      .w = 800,
+      .x = 0,
+      .y = 0
+    };
+    State* kmeans_state = (State*)cluster_stuff->state;
+    cluster_widget(rect, cluster_stuff->data->samples, kmeans_state->clusters, kmeans_state->centroids,
+                   arrlen(kmeans_state->centroids),  ((Data*)(cluster_stuff->data))->limits);
     EndDrawing();
   }
   CloseWindow();
