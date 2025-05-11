@@ -5,6 +5,7 @@
 #include <math.h>
 #include <float.h>
 #include "extra_math.h"
+
 #define STB_DS_IMPLEMENTATION
 #include "stb_ds.h"
 

@@ -5,15 +5,28 @@
 #define STB_DS_IMPLEMENTATION
 #include "stb_ds.h"
 
+void print_table(float** table) {
+  for(size_t i = 0; i<arrlen(table); i++) {
+    for(size_t j = 0; j<arrlen(table[i]); j++) {
+      if(j>0){
+        printf(",");
+      }
+      printf(" %f",table[i][j]);
+    }
+    printf("\n");
+  }
+}
+
 float** read_csv_from_file(const char* file_path) {
   FILE* file_handle = fopen(file_path, "r");
 
   float** float_table = NULL;
   char* line_array = NULL;
-  char buff[2];
+
   while(true) {
     // read file step by step
-    fgets(buff, 1, file_handle);
+    char buff[2] = {0};
+    fgets(buff, 2, file_handle);
     if( !( (buff[0] == '\n' || buff[0] == '\0')) ){
       arrput(line_array, buff[0]);
     } else {
