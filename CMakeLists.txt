@@ -34,6 +34,23 @@ target_include_directories(analyzer_gui
   include
 )
 
+set(CSV_SOURCES
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/csv.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/csv.h
+)
+add_library(csv)
+target_sources(csv
+ PRIVATE
+  ${CSV_SOURCES}
+)
+target_include_directories(csv
+ PRIVATE
+  include
+)
+target_link_libraries(csv
+ PRIVATE
+)
+
 set(READ_IN_CSV_SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/src/read_in_csv.c
 )
@@ -48,6 +65,7 @@ target_include_directories(read_in_csv
 )
 target_link_libraries(read_in_csv
  PRIVATE
+ csv
 )
 
 set(CLUSTER_ANALYZER_SOURCES
