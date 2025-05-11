@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(cluster_analyzer)
+project(read_in_csv)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -32,6 +32,22 @@ target_sources(analyzer_gui
 target_include_directories(analyzer_gui
  PRIVATE
   include
+)
+
+set(READ_IN_CSV_SOURCES
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/read_in_csv.c
+)
+add_executable(read_in_csv)
+target_sources(read_in_csv
+ PRIVATE
+  ${READ_IN_CSV_SOURCES}
+)
+target_include_directories(read_in_csv
+ PRIVATE
+  include
+)
+target_link_libraries(read_in_csv
+ PRIVATE
 )
 
 set(CLUSTER_ANALYZER_SOURCES
