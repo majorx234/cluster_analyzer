@@ -81,3 +81,13 @@ void free_data(Data** data)
   free(*data);
   *data = NULL;
 }
+
+void print_data(Data* data) {
+  for(size_t i = 0; i<arrlen(data->samples); i++) {
+    printf("(%f, %f) ", data->samples[i].x, data->samples[i].y);
+    if (i != arrlen(data->samples)-1){
+      printf(",");
+    }
+  }
+  printf("\n");
+}

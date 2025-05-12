@@ -21,5 +21,6 @@ float rand_float(void);
 void gen_data(Data** data, size_t num_samples, size_t num_centroids, Limits limits);
 void gen_data_mouse(Data** data, size_t num_samples, size_t num_centroids, Limits limits);
 void free_data(Data** data);
+void print_data(Data *data);
 
 #endif // DATA_H_
