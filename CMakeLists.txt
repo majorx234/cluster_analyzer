@@ -19,6 +19,10 @@ target_include_directories(kmeans
  PRIVATE
   include
 )
+target_link_libraries(kmeans
+ PRIVATE
+  ${raylib_LIBRARIES}
+)
 
 set(ANALYZER_GUI_SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/src/analyzer_gui.c
@@ -84,5 +88,6 @@ target_include_directories(cluster_analyzer
 )
 target_link_libraries(cluster_analyzer
  PRIVATE
-  m
+ m
+ kmeans
 )
