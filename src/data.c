@@ -10,13 +10,13 @@
 #include "stb_ds.h"
 
 // function to return float number between 0 and 1
-static inline float rand_float(void)
+inline float rand_float(void)
 {
     // random value between 0 and 1
     return (float)rand()/RAND_MAX;
 }
 
-static void generate_cluster(Vector2 center, float radius, size_t count, Vector2 **samples)
+void generate_cluster(Vector2 center, float radius, size_t count, Vector2 **samples)
 {
     for (size_t i = 0; i < count; ++i) {
         float angle = rand_float()*2*PI;

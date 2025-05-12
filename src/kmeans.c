@@ -1,23 +1,24 @@
-#include "stddef.h"
-#include "math.h"
+#include <float.h>
+#include <stdlib.h>
+#include <stddef.h>
 #include "raylib.h"
 #include "raymath.h"
 #include "stb_ds.h"
 
 #include "kmeans.h"
 #include "data.h"
-#include <float.h>
-#include <stdlib.h>
+#include "extra_math.h"
 
 void kmeans_step_wrapper(ClusterStuff* cluster_stuff) {
-  kmeans_step((Data*)cluster_stuff->data, (State*)cluster_stuff->state);
+  kmeans_step((State*)cluster_stuff->state, (Data*)cluster_stuff->data);
+  kmeans_update_centroids((State*)cluster_stuff->state, (Data*)cluster_stuff->data);
 }
 
 void kmeans_init(State** state, size_t num_clusters){
   *state = malloc(sizeof(State));
   (*state)->clusters = malloc(num_clusters*sizeof(Vector2*));
   for (size_t i = 0; i< num_clusters; i++) {
-    arrsetlen((*state)->clusters[i], 1);
+    arrsetlen((*state)->clusters[i], 0);
   }
 }
 
@@ -30,7 +31,7 @@ void kmeans_free(State** state) {
   *state = NULL;
 }
 
-void kmeans_step(Data* data, State* state)
+void kmeans_step(State* state, Data* data)
 {
     for (size_t j = 0; j < state->num_clusters; ++j) {
         arrsetlen(state->clusters[j], 0);
@@ -49,5 +50,23 @@ void kmeans_step(Data* data, State* state)
             }
         }
         arrput(state->clusters[k], p);
+    }
+}
+
+void kmeans_update_centroids(State* state, Data* data)
+{
+    for (size_t i = 0; i < state->num_clusters; ++i) {
+        if (arrlen(state->clusters[i]) > 0) {
+            state->centroids[i] = Vector2Zero();
+            for (size_t j = 0; j < arrlen(state->clusters[i]); ++j) {
+                state->centroids[i] = Vector2Add(state->centroids[i], state->clusters[i][j]);
+            }
+            state->centroids[i].x /= arrlen(state->clusters[i]);
+            state->centroids[i].y /= arrlen(state->clusters[i]);
+        } else {
+            // if cluster is empty just regenerate mean
+            state->centroids[i].x = Lerp(data->limits.min_x, data->limits.max_x, rand_float());
+            state->centroids[i].y = Lerp(data->limits.min_y, data->limits.max_y, rand_float());
+        }
     }
 }

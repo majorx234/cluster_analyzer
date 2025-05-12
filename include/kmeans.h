@@ -14,7 +14,8 @@ typedef struct State {
 
 void kmeans_step_wrapper(ClusterStuff* cluster_stuff);
 void kmeans_init(State** state, size_t num_clusters);
-void kmeans_step(Data *data, State *state);
+void kmeans_step(State *state, Data *data);
+void kmeans_update_centroids(State* state, Data* data);
 void kmeans_free(State** state);
 
 #endif // KMEANS_H_
