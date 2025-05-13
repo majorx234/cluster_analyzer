@@ -14,11 +14,23 @@ void kmeans_step_wrapper(ClusterStuff* cluster_stuff) {
   kmeans_update_centroids((State*)cluster_stuff->state, (Data*)cluster_stuff->data);
 }
 
-void kmeans_init(State** state, size_t num_clusters){
+void kmeans_init(State** state, size_t num_clusters, Limits limits){
   *state = malloc(sizeof(State));
-  (*state)->clusters = malloc(num_clusters*sizeof(Vector2*));
+  (*state)->clusters = NULL;
+  (*state)->centroids = NULL;
+  (*state)->num_clusters = num_clusters;
   for (size_t i = 0; i< num_clusters; i++) {
+    arrput((*state)->clusters, NULL);
     arrsetlen((*state)->clusters[i], 0);
+    Vector2 new_centroid = {
+      .x = Lerp(limits.min_x,
+                limits.max_x,
+                rand_float()),
+      .y = Lerp(limits.min_y,
+                limits.max_y,
+                rand_float())
+    };
+    arrput((*state)->centroids, new_centroid);
   }
 }
 
@@ -26,7 +38,7 @@ void kmeans_free(State** state) {
   for (size_t i = 0; i< (*state)->num_clusters; i++) {
     arrfree((*state)->clusters[i]);
   }
-  free((*state)->clusters);
+  arrfree((*state)->clusters);
   free(*state);
   *state = NULL;
 }

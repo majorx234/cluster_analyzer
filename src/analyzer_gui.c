@@ -72,8 +72,12 @@ int start_render_loop(ClusterStuff* cluster_stuff) {
       .y = 0
     };
     State* kmeans_state = (State*)cluster_stuff->state;
-    cluster_widget(rect, cluster_stuff->data->samples, kmeans_state->clusters, kmeans_state->centroids,
-                   arrlen(kmeans_state->centroids),  ((Data*)(cluster_stuff->data))->limits);
+    cluster_widget(rect,
+                   cluster_stuff->data->samples,
+                   kmeans_state->clusters,
+                   kmeans_state->centroids,
+                   arrlen(kmeans_state->centroids),
+                   ((Data*)(cluster_stuff->data))->limits);
     EndDrawing();
   }
   CloseWindow();

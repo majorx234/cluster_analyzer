@@ -90,4 +90,5 @@ target_link_libraries(cluster_analyzer
  PRIVATE
  m
  kmeans
+ analyzer_gui
 )
