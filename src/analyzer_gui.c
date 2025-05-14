@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "data.h"
 #include "kmeans.h"
 #include "raylib.h"
 #include "raymath.h"
@@ -51,16 +52,18 @@ int start_render_loop(ClusterStuff* cluster_stuff) {
   SetConfigFlags(FLAG_WINDOW_RESIZABLE);
   InitWindow(800, 600, "k-means");
 
-  // generate_new_state();
-
   while (!WindowShouldClose()) {
     if (IsKeyPressed(KEY_R)) {
-      // generate_new_state();
+      Limits limits = cluster_stuff->data->limits;
+      free_data(&cluster_stuff->data);
+      gen_data_mouse(&cluster_stuff->data, 10, limits);
+      kmeans_free((State**)&cluster_stuff->state);
+      kmeans_init((State**)&cluster_stuff->state, 3, limits);
       //  recluster_state();
     }
     if (IsKeyPressed(KEY_SPACE)) {
       cluster_stuff->algostep_cb(cluster_stuff);
-      // cluster_stuff->algostep_cb()
+      cluster_stuff->algostep_cb(cluster_stuff->state);
       //  recluster_state();
     }
     BeginDrawing();
