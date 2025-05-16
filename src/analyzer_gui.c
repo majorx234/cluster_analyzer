@@ -94,6 +94,15 @@ void cluster_widget(UiRect r, Vector2 *samples, Vector2 **clusters, Vector2* cen
     Vector2 it = samples[i];
     DrawCircleV(project_sample_to_screen(r, it, limits), SAMPLE_RADIUS, LIGHTGRAY);
   }
+#ifdef DEBUG
+  for(size_t i = 0; i<arrlen(samples); i++) {
+    printf("(%f, %f) ", samples[i].x, samples[i].y);
+    if (i != arrlen(samples)-1){
+      printf(",");
+    }
+  }
+  printf("\n");
+#endif
 
   // draw cluster items and centroids
   for (size_t i = 0; i < num_cluster; ++i) {
