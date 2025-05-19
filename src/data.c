@@ -45,7 +45,7 @@ void gen_data(Data** data, size_t num_samples, size_t num_centroids, Limits limi
     float dist_max_x = limits.max_x - new_centroid.x;
     float dist_min_y = new_centroid.y - limits.min_y;
     float dist_max_y = limits.max_y - new_centroid.y;
-    float max_bound = MIN(dist_min_x, (MIN(dist_max_x, (MIN(dist_min_y, dist_max_y)) )));
+    float max_bound = MIN(dist_min_x, (MIN(dist_max_x, (MIN(dist_min_y, dist_max_y)))));
 
     float radius = lerp(0, max_bound, rand_float());
     generate_cluster(CLITERAL(Vector2){new_centroid.x, new_centroid.y}, radius, num_samples,

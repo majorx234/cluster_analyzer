@@ -63,7 +63,6 @@ int start_render_loop(ClusterStuff* cluster_stuff) {
     }
     if (IsKeyPressed(KEY_SPACE)) {
       cluster_stuff->algostep_cb(cluster_stuff);
-      cluster_stuff->algostep_cb(cluster_stuff->state);
       //  recluster_state();
     }
     BeginDrawing();
