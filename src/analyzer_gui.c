@@ -55,15 +55,13 @@ int start_render_loop(ClusterStuff* cluster_stuff) {
   while (!WindowShouldClose()) {
     if (IsKeyPressed(KEY_R)) {
       Limits limits = cluster_stuff->data->limits;
+      kmeans_free((State**)&(cluster_stuff->state));
+      kmeans_init((State**)&(cluster_stuff->state), 3, limits);
       free_data(&cluster_stuff->data);
-      gen_data_mouse(&cluster_stuff->data, 10, limits);
-      kmeans_free((State**)&cluster_stuff->state);
-      kmeans_init((State**)&cluster_stuff->state, 3, limits);
-      //  recluster_state();
+      gen_data(&(cluster_stuff->data), 10, 3,limits);
     }
     if (IsKeyPressed(KEY_SPACE)) {
       cluster_stuff->algostep_cb(cluster_stuff);
-      //  recluster_state();
     }
     BeginDrawing();
     ClearBackground(GetColor(0x181818AA));
