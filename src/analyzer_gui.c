@@ -54,14 +54,15 @@ int start_render_loop(ClusterStuff* cluster_stuff) {
 
   while (!WindowShouldClose()) {
     if (IsKeyPressed(KEY_R)) {
-      Limits limits = cluster_stuff->data->limits;
+      // TODO iterate over data array and create new data
+      Limits limits = cluster_stuff->data[0]->limits;
       kmeans_free((State**)&(cluster_stuff->state));
       kmeans_init((State**)&(cluster_stuff->state), 3, limits);
-      free_data(&cluster_stuff->data);
-      gen_data(&(cluster_stuff->data), 10, 3,limits);
+      free_data(&cluster_stuff->data[0]);
+      gen_data(&(cluster_stuff->data[0]), 10, 3,limits);
     }
     if (IsKeyPressed(KEY_SPACE)) {
-      cluster_stuff->algostep_cb(cluster_stuff);
+      cluster_stuff->algostep_cb(cluster_stuff, 0);
     }
     BeginDrawing();
     ClearBackground(GetColor(0x181818AA));
@@ -72,12 +73,13 @@ int start_render_loop(ClusterStuff* cluster_stuff) {
       .y = 0
     };
     State* kmeans_state = (State*)cluster_stuff->state;
+    // iterate over data distributions
     cluster_widget(rect,
-                   cluster_stuff->data->samples,
+                   cluster_stuff->data[0]->samples,
                    kmeans_state->clusters,
                    kmeans_state->centroids,
                    arrlen(kmeans_state->centroids),
-                   ((Data*)(cluster_stuff->data))->limits);
+                   ((Data*)(cluster_stuff->data[0]))->limits);
     EndDrawing();
   }
   CloseWindow();

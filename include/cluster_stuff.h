@@ -4,10 +4,10 @@
 #include "data.h"
 
 typedef struct ClusterStuff {
-  void (*algostep_cb)(struct ClusterStuff* cluster_stuff); // vector of cb functions
+  void (*algostep_cb)(struct ClusterStuff* cluster_stuff, size_t data_idx); // vector of cb functions
   void* state; // TODO -> vector of states
   // TODO *data_gen()
-  Data* data;
+  Data** data;
 } ClusterStuff;
 
 #endif // CLUSTER_STUFF_H_

@@ -12,7 +12,7 @@ typedef struct State {
   size_t num_clusters;
 } State;
 
-void kmeans_step_wrapper(ClusterStuff* cluster_stuff);
+void kmeans_step_wrapper(ClusterStuff* cluster_stuff, size_t data_idx);
 void kmeans_init(State** state, size_t num_clusters, Limits limits);
 void kmeans_step(State *state, Data *data);
 void kmeans_update_centroids(State* state, Data* data);
