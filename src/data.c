@@ -20,7 +20,20 @@ void generate_cluster(Vector2 center, float radius, size_t count, Vector2 **samp
 {
     for (size_t i = 0; i < count; ++i) {
         float angle = rand_float()*2*PI;
-        float mag = pow(1.0 - rand_float(),4);
+        // float mag = pow(1.0 - rand_float(),4);
+        float mag = pow(1.0 - rand_float(), 0.5);
+        Vector2 sample = {
+            .x = center.x + cosf(angle)*mag*radius,
+            .y = center.y + sinf(angle)*mag*radius,
+        };
+        arrput(*samples, sample);
+    }
+}
+
+void generate_circle_cluster(Vector2 center, float radius, size_t count, float width, Vector2 **samples) {
+    for (size_t i = 0; i < count; ++i) {
+        float angle = rand_float()*2.0f*PI;
+        float mag = radius + width*(rand_float() - 0.5f);
         Vector2 sample = {
             .x = center.x + cosf(angle)*mag*radius,
             .y = center.y + sinf(angle)*mag*radius,
@@ -51,6 +64,20 @@ void gen_data(Data** data, size_t num_samples, size_t num_centroids, Limits limi
     generate_cluster(CLITERAL(Vector2){new_centroid.x, new_centroid.y}, radius, num_samples,
                      &(*data)->samples);
     (*data)->limits = limits;
+  }
+}
+
+void gen_data_circles(Data** data, size_t num_samples, Vector2* centroids, size_t num_centroids, float* radius, float* widths, Limits limits) {
+  *data = malloc(sizeof(Data));
+  (*data)->samples = NULL;
+  size_t count = num_samples/num_centroids;
+  for (size_t i = 0; i < num_centroids; ++i) {
+    Vector2 new_centroid = {
+      .x = 0.0f,
+      .y = 0.0f
+    };
+    float radius = MIN(limits.max_x - limits.min_x, limits.max_y - limits.min_y)* rand_float();
+    generate_circle_cluster(new_centroid, radius, count, widths[i], &(*data)->samples);
   }
 }
 

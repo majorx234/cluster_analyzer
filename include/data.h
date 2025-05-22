@@ -19,6 +19,8 @@ typedef struct Data {
 float rand_float(void);
 void gen_data(Data** data, size_t num_samples, size_t num_centroids, Limits limits);
 void gen_data_mouse(Data** data, size_t num_samples, Limits limits);
+void gen_data_circles(Data** data, size_t num_samples, Vector2* centroids,
+                      size_t num_centroids, float* radius, float* widths, Limits limits);
 void free_data(Data** data);
 void print_data(Data *data);
 
