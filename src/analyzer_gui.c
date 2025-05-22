@@ -66,19 +66,31 @@ int start_render_loop(ClusterStuff* cluster_stuff) {
     }
     BeginDrawing();
     ClearBackground(GetColor(0x181818AA));
-    UiRect rect = {
+    UiRect rect1 = {
       .h = 600,
-      .w = 800,
+      .w = 400,
       .x = 0,
       .y = 0
     };
-    State* kmeans_state = (State*)cluster_stuff->state;
+    UiRect rect2 = {
+      .h = 600,
+      .w = 400,
+      .x = 300,
+      .y = 0
+    };
+    State* kmeans_state1 = (State*)cluster_stuff->state;
     // iterate over data distributions
-    cluster_widget(rect,
+    cluster_widget(rect1,
                    cluster_stuff->data[0]->samples,
-                   kmeans_state->clusters,
-                   kmeans_state->centroids,
-                   arrlen(kmeans_state->centroids),
+                   kmeans_state1->clusters,
+                   kmeans_state1->centroids,
+                   arrlen(kmeans_state1->centroids),
+                   ((Data*)(cluster_stuff->data[0]))->limits);
+    cluster_widget(rect2,
+                   cluster_stuff->data[0]->samples,
+                   kmeans_state1->clusters,
+                   kmeans_state1->centroids,
+                   arrlen(kmeans_state1->centroids),
                    ((Data*)(cluster_stuff->data[0]))->limits);
     EndDrawing();
   }
