@@ -15,7 +15,7 @@ int main(int argc,char** argv){
   kmeans_init(&state, 3, limits);
 
   ClusterStuff cluster_stuff;
-  cluster_stuff.algostep_cb = kmeans_step_wrapper;
+  cluster_stuff.algostep_cb[0] = kmeans_step_wrapper;
   cluster_stuff.state = (void*)state;
   Data* new_data;
   gen_data(&new_data, 10, 3, limits);

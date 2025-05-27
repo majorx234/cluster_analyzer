@@ -62,7 +62,7 @@ int start_render_loop(ClusterStuff* cluster_stuff) {
       gen_data(&(cluster_stuff->data[0]), 10, 3,limits);
     }
     if (IsKeyPressed(KEY_SPACE)) {
-      cluster_stuff->algostep_cb(cluster_stuff, 0);
+      cluster_stuff->algostep_cb[0](cluster_stuff, 0);
     }
     BeginDrawing();
     ClearBackground(GetColor(0x181818AA));
