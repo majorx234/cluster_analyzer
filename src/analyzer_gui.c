@@ -56,8 +56,8 @@ int start_render_loop(ClusterStuff* cluster_stuff) {
     if (IsKeyPressed(KEY_R)) {
       // TODO iterate over data array and create new data
       Limits limits = cluster_stuff->data[0]->limits;
-      kmeans_free((State**)&(cluster_stuff->state));
-      kmeans_init((State**)&(cluster_stuff->state), 3, limits);
+      kmeans_free((State**)&(cluster_stuff->state[0]));
+      kmeans_init((State**)&(cluster_stuff->state[0]), 3, limits);
       free_data(&cluster_stuff->data[0]);
       gen_data(&(cluster_stuff->data[0]), 10, 3,limits);
     }
