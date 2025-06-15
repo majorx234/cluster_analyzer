@@ -12,6 +12,9 @@
   - Affinity Propagation
   - Mean Shift
   - Spectral Clustering
+- need general interface for algorithms
+- implement differnt distributions for points
+
 
 # Overview over Algos
 ![Overview](documentation/images/cluster_algos.png "overview over distribution and clustering methods")
