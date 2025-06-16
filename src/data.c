@@ -42,6 +42,20 @@ void generate_circle_cluster(Vector2 center, float radius, size_t count, float w
     }
 }
 
+void generate_half_circle_cluster(Vector2 center, float radius, float direction_angle, size_t count, float width, Vector2 **samples) {
+    for (size_t i = 0; i < count; ++i) {
+      float angle = fmod((rand_float()-0.5f)*PI + direction_angle, 2.0f*PI);
+        float mag = radius + width*(rand_float() - 0.5f);
+        Vector2 sample = {
+            .x = center.x + cosf(angle)*mag*radius,
+            .y = center.y + sinf(angle)*mag*radius,
+        };
+        arrput(*samples, sample);
+    }
+}
+
+void generate_gaussian_distribution(Vector2 center, float radius, float normal_angle, size_t count, Vector2 **samples){}
+
 void gen_data(Data** data, size_t num_samples, size_t num_centroids, Limits limits){
   // TODO check if data == NULL
 

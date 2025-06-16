@@ -72,6 +72,23 @@ target_link_libraries(read_in_csv
  csv
 )
 
+set(NORMAL_DIST_TEST_SOURCES
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/normal_dist_test.c
+)
+add_executable(normal_dist_test)
+target_sources(normal_dist_test
+ PRIVATE
+  ${NORMAL_DIST_TEST_SOURCES}
+)
+target_include_directories(normal_dist_test
+ PRIVATE
+  include
+)
+target_link_libraries(normal_dist_test
+ PRIVATE
+ m
+)
+
 set(CLUSTER_ANALYZER_SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/src/data.c
   ${CMAKE_CURRENT_SOURCE_DIR}/include/data.h
