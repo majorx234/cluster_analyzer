@@ -24,3 +24,5 @@
 - https://scikit-learn.org/stable/modules/clustering.html
   - overview of algos
   - source of table
+- Idea of rotation function:
+  - https://danceswithcode.net/engineeringnotes/rotations_in_2d/rotations_in_2d.html
