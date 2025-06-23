@@ -16,6 +16,20 @@ inline float rand_float(void)
     return (float)rand()/RAND_MAX;
 }
 
+void rotate_points_inplace(
+        double* x,     //X coords to rotate - replaced on return
+        double* y,     //Y coords to rotate - replaced on return
+        double angle)   //Angle of rotation (radians, counterclockwise)
+{
+    double cos_angle = cos(angle);
+    double sin_angle = sin(angle);
+    double y_new = (*x)*sin_angle + (*y)*cos_angle;
+    double x_new = (*x)*cos_angle - (*y)*sin_angle;
+    *x = x_new;
+    *y = y_new;
+    return;
+}
+
 void generate_cluster(Vector2 center, float radius, size_t count, Vector2 **samples)
 {
     for (size_t i = 0; i < count; ++i) {
@@ -54,7 +68,9 @@ void generate_half_circle_cluster(Vector2 center, float radius, float direction_
     }
 }
 
-void generate_gaussian_distribution(Vector2 center, float radius, float normal_angle, size_t count, Vector2 **samples){}
+void generate_gaussian_distribution(Vector2 center, float radius, float normal_angle, size_t count, Vector2 **samples){
+  
+}
 
 void gen_data(Data** data, size_t num_samples, size_t num_centroids, Limits limits){
   // TODO check if data == NULL
