@@ -1,6 +1,7 @@
 #include <float.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <stdio.h>
 #include "raylib.h"
 #include "raymath.h"
 #include "stb_ds.h"
@@ -61,7 +62,7 @@ void kmeans_step(State* state, Data* data)
                 k = j;
             }
         }
-        arrput(state->clusters[k], p);
+        if(k != -1) arrput(state->clusters[k], p);
     }
 }
 
