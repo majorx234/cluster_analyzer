@@ -1,5 +1,6 @@
 #include "data.h"
 #include <raylib.h>
+#include <raymath.h>
 #include <stdio.h>
 #include <stddef.h>
 #include <math.h>
@@ -19,12 +20,14 @@ inline float rand_float(void)
 void rotate_points_inplace(
         double* x,     //X coords to rotate - replaced on return
         double* y,     //Y coords to rotate - replaced on return
+        double dx,     // dx coords to translate
+        double dy,     // dy coords to translate
         double angle)   //Angle of rotation (radians, counterclockwise)
 {
     double cos_angle = cos(angle);
     double sin_angle = sin(angle);
-    double y_new = (*x)*sin_angle + (*y)*cos_angle;
-    double x_new = (*x)*cos_angle - (*y)*sin_angle;
+    double y_new = (*x)*sin_angle + (*y)*cos_angle + dx;
+    double x_new = (*x)*cos_angle - (*y)*sin_angle + dy;
     *x = x_new;
     *y = y_new;
     return;
@@ -68,8 +71,42 @@ void generate_half_circle_cluster(Vector2 center, float radius, float direction_
     }
 }
 
-void generate_gaussian_distribution(Vector2 center, float radius, float normal_angle, size_t count, Vector2 **samples){
-  
+double sampleNormal2(double mean, double sigma) {
+    const double two_pi = 2.0 * M_PI;
+    double u1, u2;
+    do
+    {
+        u1 = ((double) rand() / (RAND_MAX));
+    }
+    while (u1 == 0);
+    u2 = ((double) rand() / (RAND_MAX));
+
+    //compute z0 and z1
+    double mag = sigma * sqrt(-2.0 * log(u1));
+    double z0  = mag * cos(two_pi * u2) + mean;
+    double z1  = mag * sin(two_pi * u2) + mean;
+
+    return z0; // z1 is rand too
+}
+
+void generate_gaussian_distribution(Vector2 center,
+                                    float mean_x,
+                                    float sigma_x,
+                                    float mean_y,
+                                    float sigma_y,
+                                    float normal_angle,
+                                    size_t count,
+                                    Vector2 **samples){
+  for (int i = 0; i < count; ++i) {
+    double x = sampleNormal2(mean_x, sigma_x);
+    double y = sampleNormal2(mean_y, sigma_y);
+    rotate_points_inplace(&x, &y, center.x, center.y, normal_angle);
+    Vector2 sample = {
+      .x = x,
+      .y = y,
+    };
+    arrput(*samples, sample);
+  }
 }
 
 void gen_data(Data** data, size_t num_samples, size_t num_centroids, Limits limits){
