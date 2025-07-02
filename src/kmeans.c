@@ -11,8 +11,9 @@
 #include "extra_math.h"
 
 void kmeans_step_wrapper(ClusterStuff* cluster_stuff, size_t data_idx) {
-  kmeans_step((State*)cluster_stuff->state, (Data*)cluster_stuff->data[data_idx]);
-  kmeans_update_centroids((State*)cluster_stuff->state, (Data*)cluster_stuff->data[data_idx]);
+  // TODO: need extra index parameter for state of algo
+  kmeans_step((State*)cluster_stuff->state[data_idx], (Data*)cluster_stuff->data[data_idx]);
+  kmeans_update_centroids((State*)cluster_stuff->state[data_idx], (Data*)cluster_stuff->data[data_idx]);
 }
 
 void kmeans_init(State** state, size_t num_clusters, Limits limits){
