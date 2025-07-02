@@ -11,3 +11,7 @@ auto-save-list
 tramp
 .\#*
 .ccls-cache
+.cache/
+GPATH
+GRTAGS
+GTAGS
