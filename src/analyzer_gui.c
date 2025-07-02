@@ -78,7 +78,7 @@ int start_render_loop(ClusterStuff* cluster_stuff) {
       .x = 300,
       .y = 0
     };
-    State* kmeans_state1 = (State*)cluster_stuff->state;
+    State* kmeans_state1 = (State*)cluster_stuff->state[0];
     // iterate over data distributions
     cluster_widget(rect1,
                    cluster_stuff->data[0]->samples,
