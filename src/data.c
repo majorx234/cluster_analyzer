@@ -143,6 +143,15 @@ void gen_data_circles(Data** data, size_t num_samples, Vector2* centroids, size_
   }
 }
 
+void gen_data_half_circles(Data** data, size_t num_samples, Vector2* centroids, size_t num_centroids, float* radius, float* direction_angle, float* widths) {
+  *data = malloc(sizeof(Data));
+  (*data)->samples = NULL;
+  size_t count = num_samples/num_centroids;
+  for (size_t i = 0; i < num_centroids; ++i) {
+    generate_half_circle_cluster(centroids[i], radius[i], direction_angle[i], count, widths[i], &((*data)->samples));
+  }
+}
+
 void gen_data_mouse(Data** data, size_t num_samples, Limits limits) {
   *data = malloc(sizeof(Data));
   (*data)->samples = NULL;
