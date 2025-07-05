@@ -10,4 +10,7 @@ typedef struct ClusterStuff {
   Data** data;
 } ClusterStuff;
 
+ClusterStuff *create_cluster_stuff();
+void free_cluster_stuff(ClusterStuff** cluster_stuff);
+
 #endif // CLUSTER_STUFF_H_
