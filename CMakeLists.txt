@@ -92,6 +92,8 @@ target_link_libraries(normal_dist_test
 set(CLUSTER_ANALYZER_SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/src/data.c
   ${CMAKE_CURRENT_SOURCE_DIR}/include/data.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/cluster_stuff.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/cluster_stuff.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/main.c
 )
 add_executable(cluster_analyzer)
