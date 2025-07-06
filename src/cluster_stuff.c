@@ -42,6 +42,22 @@ ClusterStuff *create_cluster_stuff() {
   };
   Data* new_data1 = NULL;
   gen_data_circles(&new_data1, 40, centroids1, 2, radiuses1, widths1);
+
+  Data* new_data2 = NULL;
+  Vector2 center2[2] = {
+    {
+      .x=-0.2f,
+      .y=-0.2f
+    },{
+      .x=0.2f,
+      .y=0.2f
+    }
+  };
+  float radius2[2] = {0.5f, 05f};
+  float widths2[2] = {0.1f, 0.1f};
+  float direction_angle2[2] = {3.14f/2.0f,3.14f*1.5f};
+  gen_data_half_circles(&new_data2, 50, center2, 2, radius2, direction_angle2, widths2);
+
   arrput(cluster_stuff->data, new_data1);
 
   return cluster_stuff;
