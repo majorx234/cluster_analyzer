@@ -109,6 +109,24 @@ void generate_gaussian_distribution(Vector2 center,
   }
 }
 
+void gen_data_gaussian(Data **data, size_t num_samples, Vector2* centroids, Vector2* means,
+                       Vector2* sigmas, size_t num_centroids, float* normal_angles) {
+  *data = malloc(sizeof(Data));
+  (*data)->samples = NULL;
+  size_t count = num_samples/num_centroids;
+  for (size_t i = 0; i < num_centroids; ++i) {
+    generate_gaussian_distribution(centroids[i],
+                                   means[i].x,
+                                   sigmas[i].x,
+                                   means[i].y,
+                                   sigmas[i].y,
+                                   normal_angles[i],
+                                   count,
+                                   &(*data)->samples);
+  }
+}
+
+
 void gen_data(Data** data, size_t num_samples, size_t num_centroids, Limits limits){
   // TODO check if data == NULL
 
