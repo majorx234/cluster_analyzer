@@ -26,3 +26,5 @@
   - source of table
 - Idea of rotation function:
   - https://danceswithcode.net/engineeringnotes/rotations_in_2d/rotations_in_2d.html
+- Idea taken from Tsoding:
+  - https://www.youtube.com/watch?v=kH-hqG34ylA
