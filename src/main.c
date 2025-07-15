@@ -10,5 +10,8 @@ int main(int argc,char** argv){
   print_data(cluster_stuff->data[0]);
 
   start_render_loop(cluster_stuff);
+
+  //cleanup
+  free_cluster_stuff(&cluster_stuff);
   return 0;
 }
