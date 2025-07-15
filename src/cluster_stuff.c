@@ -19,6 +19,8 @@ ClusterStuff *create_cluster_stuff() {
     cluster_stuff->state[i] = (void*)state[i];
     cluster_stuff->data = NULL;
   }
+  cluster_stuff->num_algos = 4;
+
   Data* new_data0 = NULL;
   gen_data(&new_data0, 10, 3, limits);
   arrput(cluster_stuff->data, new_data0);
@@ -59,6 +61,7 @@ ClusterStuff *create_cluster_stuff() {
   gen_data_half_circles(&new_data2, 50, center2, 2, radius2, direction_angle2, widths2);
 
   arrput(cluster_stuff->data, new_data2);
+  cluster_stuff->num_distributions = 3;
 
   return cluster_stuff;
 }
