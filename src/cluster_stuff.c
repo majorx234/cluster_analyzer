@@ -62,4 +62,13 @@ ClusterStuff *create_cluster_stuff() {
 
   return cluster_stuff;
 }
-void free_cluster_stuff(ClusterStuff** cluster_stuff){}
+
+void free_cluster_stuff(ClusterStuff** cluster_stuff){
+  for(int i = 0; i < 4; i++){
+    (*cluster_stuff)->algostep_cb[i] = NULL;
+    free((*cluster_stuff)->state[i]);
+  }
+  arrfree((*cluster_stuff)->data);
+  free((*cluster_stuff));
+  *cluster_stuff = NULL;
+}
