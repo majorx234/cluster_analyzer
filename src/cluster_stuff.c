@@ -1,5 +1,6 @@
 #include "cluster_stuff.h"
 
+#include <raylib.h>
 #include <stdlib.h>
 #include <string.h>
 #include "stb_ds.h"
@@ -62,7 +63,6 @@ ClusterStuff *create_cluster_stuff() {
   gen_data_half_circles(&new_data2, 50, center2, 2, radius2, direction_angle2, widths2);
 
   arrput(cluster_stuff->data, new_data2);
-  cluster_stuff->num_distributions = 3;
 
   Data* new_data3 = NULL;
 
@@ -78,20 +78,24 @@ ClusterStuff *create_cluster_stuff() {
       .y=0.4f
     }
   };
-  Vector2 means[3] = {
+  Vector2 sigmas[3] = {
     {
-      .x=0.5f,
-      .y=0.5f
+      .x=0.2f,
+      .y=0.8f
     },{
-      .x=-0.5f,
-      .y=0.25f
+      .x=0.2f,
+      .y=0.8f
     },{
-      .x=-0.4f,
-      .y=0.4f
+      .x=0.2f,
+      .y=0.8f
     }
   };
+  float angles[3] = {0.7*PI,0.7*PI,0.7*PI};
 
-  #gen_data_gaussian(&data, 40, center3, )
+  gen_data_gaussian(&new_data3, 40, center3, sigmas, 3, angles);
+
+  arrput(cluster_stuff->data, new_data3);
+  cluster_stuff->num_distributions = 4;
 
   return cluster_stuff;
 }
