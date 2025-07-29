@@ -1,6 +1,7 @@
 #include "cluster_stuff.h"
 
 #include <stdlib.h>
+#include <string.h>
 #include "stb_ds.h"
 #include "kmeans.h"
 
@@ -62,6 +63,35 @@ ClusterStuff *create_cluster_stuff() {
 
   arrput(cluster_stuff->data, new_data2);
   cluster_stuff->num_distributions = 3;
+
+  Data* new_data3 = NULL;
+
+  Vector2 center3[3] = {
+    {
+      .x=0.5f,
+      .y=-0.5f
+    },{
+      .x=-0.5f,
+      .y=0.25f
+    },{
+      .x=-0.4f,
+      .y=0.4f
+    }
+  };
+  Vector2 means[3] = {
+    {
+      .x=0.5f,
+      .y=0.5f
+    },{
+      .x=-0.5f,
+      .y=0.25f
+    },{
+      .x=-0.4f,
+      .y=0.4f
+    }
+  };
+
+  #gen_data_gaussian(&data, 40, center3, )
 
   return cluster_stuff;
 }
