@@ -90,13 +90,13 @@ double sampleNormal2(double mean, double sigma) {
 }
 
 void generate_gaussian_distribution(Vector2 center,
-                                    float mean_x,
                                     float sigma_x,
-                                    float mean_y,
                                     float sigma_y,
                                     float normal_angle,
                                     size_t count,
                                     Vector2 **samples){
+  float mean_x = 0.0f;
+  float mean_y = 0.0f;
   for (int i = 0; i < count; ++i) {
     double x = sampleNormal2(mean_x, sigma_x);
     double y = sampleNormal2(mean_y, sigma_y);
@@ -109,16 +109,14 @@ void generate_gaussian_distribution(Vector2 center,
   }
 }
 
-void gen_data_gaussian(Data **data, size_t num_samples, Vector2* centroids, Vector2* means,
+void gen_data_gaussian(Data **data, size_t num_samples, Vector2* centroids,
                        Vector2* sigmas, size_t num_centroids, float* normal_angles) {
   *data = malloc(sizeof(Data));
   (*data)->samples = NULL;
   size_t count = num_samples/num_centroids;
   for (size_t i = 0; i < num_centroids; ++i) {
     generate_gaussian_distribution(centroids[i],
-                                   means[i].x,
                                    sigmas[i].x,
-                                   means[i].y,
                                    sigmas[i].y,
                                    normal_angles[i],
                                    count,
