@@ -46,6 +46,7 @@ ClusterStuff *create_cluster_stuff() {
   };
   Data* new_data1 = NULL;
   gen_data_circles(&new_data1, 40, centroids1, 2, radiuses1, widths1);
+  arrput(cluster_stuff->data, new_data1);
 
   Data* new_data2 = NULL;
   Vector2 center2[2] = {
