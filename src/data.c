@@ -134,17 +134,12 @@ void gen_data(Data** data, size_t num_samples, size_t num_centroids, Limits limi
   }
 }
 
-void gen_data_circles(Data** data, size_t num_samples, Vector2* centroids, size_t num_centroids, float* radius, float* widths, Limits limits) {
+void gen_data_circles(Data** data, size_t num_samples, Vector2* centroids, size_t num_centroids, float* radius, float* widths) {
   *data = malloc(sizeof(Data));
   (*data)->samples = NULL;
   size_t count = num_samples/num_centroids;
   for (size_t i = 0; i < num_centroids; ++i) {
-    Vector2 new_centroid = {
-      .x = 0.0f,
-      .y = 0.0f
-    };
-    float radius = MIN(limits.max_x - limits.min_x, limits.max_y - limits.min_y)* rand_float();
-    generate_circle_cluster(new_centroid, radius, count, widths[i], &(*data)->samples);
+    generate_circle_cluster(centroids[i], radius[i], count, widths[i], &(*data)->samples);
   }
 }
 
